@@ -4,7 +4,7 @@
         <title>First Draft Of Chat App</title>
     </head>
     <body>
-        <h1>I don't even know what name to give it. (Acee, our frontend genius will figure it out)</h1>
+        <h1>Chat App</h1>
         <div id="message-box"></div>
         <input type="text" id="message-input" placeholder="What do you have in mind?">
         <button id="send-btn">Send</button>
@@ -16,14 +16,15 @@
             socket.on('message', function(data){
                 var messageBox = document.getElementById('message-box');
                 var messageDiv = document.createElement('div');
-                messageDiv.textContent = data.message;
+                messageDiv.textContent = data.username + ': ' + data.message; // edited this line so it also displays the username with the message sent
                 messageBox.appendChild(messageDiv);
             });
 
+            var username = '{{ username }}';
             document.getElementById('send-btn').onclick = function() {
                 var messageInput = document.getElementById('message-input');
                 var message = messageInput.value;
-                socket.emit('message', {'message': message});
+                socket.emit('message', {'username': username, 'message': message});
                 messageInput.value = '';
             };
         </script>
